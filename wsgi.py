@@ -10,6 +10,6 @@ sys.path.append(os.path.dirname(__file__))
 import bottle
 from bottle_errorsrest import ErrorsRestPlugin
 
-import home
+import src.home
 bottle.install(ErrorsRestPlugin())
 application=bottle.default_app()
