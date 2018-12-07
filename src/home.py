@@ -1,5 +1,5 @@
 from bottle import route, jinja2_view as view, error, static_file
-import fla
+import src.fla as fla
 import logging
 
 @route('/hello')
@@ -14,6 +14,7 @@ def index():
 @error(500)
 def error500(error):
     logging.info(error)
+    print(error)    
     return 'Oups, une erreur est survenue'
 
 @route('/foot11')
@@ -36,6 +37,6 @@ def archive_foot11():
 def archive_foot7():
     return fla.get_classement(1146, saison_id=5)
     
-@route('/src/static/<filename>')
+@route('/static/<filename>')
 def server_static(filename):
-    return static_file(filename, root='/home/lesfous/www/static')
+    return static_file(filename, root='/home/lesfous/www/src/static')
