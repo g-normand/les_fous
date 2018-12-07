@@ -1,0 +1,37 @@
+
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+{% block body %}
+<table>
+  <thead>
+    <th>Rang</th>
+    <th>Nom</th>
+    <th>Pts</th>
+    <th>J</th>
+    <th>G</th>    
+    <th>N</th>
+    <th>P</th>
+    <th>Bp</th>
+    <th>Bc</th>                                                                                           
+    <th>+/-</th>
+    <th>Bonus</th>
+    <th>Forfait</th>    
+  </thead>
+  <tbody class="tablerank">
+  {% for team in teams %}
+  <tr>
+    <td class="rank">{{loop.index}}</td>
+    <td>{{team.Nom}}</td>
+    <td class="points">{{team.Points}}</td>
+    <td>{{team.Victoire + team.Defaite + team.Egalite}}</td>
+    <td class="green">{{team.Victoire}}</td>
+    <td>{{team.Egalite}}</td>
+    <td class="red">{{team.Defaite}}</td>
+    <td>{{team.Bp}}</td>
+    <td>{{team.Bc}}</td>
+    <td>{{team.Bp - team.Bc}}</td>
+    <td>{{team.Bonus}}</td>
+    <td>{{team.Forfait}}</td>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
