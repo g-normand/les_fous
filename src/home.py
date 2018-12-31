@@ -4,7 +4,7 @@ import logging
 
 @route('/hello')
 def hello():
-    return "Hello World! and foxy !"
+    return "Hello World!"
 
 @route('/')
 @view('src/index.html')
@@ -16,6 +16,14 @@ def error500(error):
     logging.info(error)
     print(error)    
     return 'Oups, une erreur est survenue'
+
+@route('/calendar')
+@view('src/calendar.html')
+def calendar():
+    calendar = fla.get_calendar(2958)
+    calendar_7 = fla.get_calendar(3041)
+    calendar.extend(calendar_7)
+    return dict(journees=sorted(calendar, key=lambda journee:journee['Date'], reverse=True))
 
 @route('/foot11')
 @view('src/football.html')

@@ -1,13 +1,16 @@
-import requests
-def foot11():
-    payload = {}
-    payload['championnatId'] = 1144
-    payload['saisonId'] = 5
-    result = requests.post('http://www.football-loisir-amateur.com/Home/GetClassement/', data=payload)
-    
-    infos = []
-    for team in result.json():
-        infos.append(team)
-    return sorted(infos, key=lambda team:team['Points'], reverse=True)
 
-print(foot11())
+from fla import get_calendar
+calendar = get_calendar(2958)
+
+calendar_7 = get_calendar(3041)
+calendar.update(calendar_7)
+
+for date in sorted(calendar, reverse=True):
+    journee = calendar[date]
+    print '%s' % date
+    print 'terrain : %s' % journee['Terrain'].encode('utf-8')
+    infos = '%s %s' % (journee['Equipedom'].ljust(25, ' '), journee['Equipeext'].ljust(25, ' '))
+    if journee['Scoredom'] is not None:
+        infos += ': SCORE %s - %s' % (journee['Scoredom'], journee['Scoreext'])
+    print (infos)
+    print ''

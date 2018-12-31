@@ -1,0 +1,26 @@
+
+<link rel="stylesheet" href="static/style.css" type="text/css">
+{% block body %}
+<table>
+  <thead>
+    <th>Date</th>
+    <th>Terrain</th>                                                                                           
+    <th>Domicile</th>
+    <th>Extérieur</th>
+    <th>Score</th>    
+  </thead>
+  <tbody class="tablerank">
+  {% for journee in journees %}
+  <tr class="{{journee['html_class']}}">
+    <td>{{journee['Date']}}</td>
+    <td>{{journee['Terrain']}}</td>
+    <td>{{journee['Equipedom']}}</td>
+    <td>{{journee['Equipeext']}}</td>
+    <td>{% if journee['Scoredom'] is not none %}
+        {{journee['Scoredom']}} - {{journee['Scoreext']}}
+        {% endif %}
+    </td>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
