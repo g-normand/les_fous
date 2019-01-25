@@ -14,7 +14,8 @@
     <th>Bc</th>                                                                                           
     <th>+/-</th>
     <th>Bonus</th>
-    <th>Forfait</th>    
+    <th>Forfait</th>
+    <th>Pts/Match</th>
   </thead>
   <tbody class="tablerank">
   {% for team in teams %}
@@ -22,7 +23,7 @@
     <td class="rank">{{loop.index}}</td>
     <td>{{team.Nom}}</td>
     <td class="points">{{team.Points}}</td>
-    <td>{{team.Victoire + team.Defaite + team.Egalite}}</td>
+    <td>{{team.Nb_Matchs}}</td>
     <td class="green">{{team.Victoire}}</td>
     <td>{{team.Egalite}}</td>
     <td class="red">{{team.Defaite}}</td>
@@ -31,6 +32,7 @@
     <td>{{team.Bp - team.Bc}}</td>
     <td>{{team.Bonus}}</td>
     <td>{{team.Forfait}}</td>
+    <td>{{team.Pts_Matchs}}</td>
     {% endfor %}
     </tbody>
 </table>

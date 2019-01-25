@@ -3,6 +3,7 @@
 #
 import requests
 import datetime
+from decimal import Decimal
 
 def get_classement(championnat_id, saison_id=6):
     payload = {}
@@ -12,6 +13,11 @@ def get_classement(championnat_id, saison_id=6):
 
     infos = []
     for team in result.json():
+        team['Nb_Matchs'] = team['Victoire'] + team['Defaite'] + team['Egalite']
+        if team['Nb_Matchs'] != 0:
+            team['Pts_Matchs'] = (Decimal(team['Points']) / Decimal(team['Nb_Matchs'])).quantize(Decimal('0.01'))
+        else:
+            team['Pts_Matchs'] = '-'
         infos.append(team)
     return dict(teams=sorted(infos, key=lambda team:team['Points'], reverse=True))
 
