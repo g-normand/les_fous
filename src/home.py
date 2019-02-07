@@ -48,3 +48,7 @@ def archive_foot7():
 @route('/static/<filename>')
 def server_static(filename):
     return static_file(filename, root='/home/lesfous/www/src/static')
+
+@route('/opponents')
+def opponents():
+    return fla.fetch_opponents()

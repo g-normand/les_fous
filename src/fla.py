@@ -1,9 +1,12 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 #
+import os
 import requests
 import datetime
 from decimal import Decimal
+from collections import OrderedDict
+import json
 
 def get_classement(championnat_id, saison_id=6):
     payload = {}
@@ -63,3 +66,50 @@ def is_victory(score_fous, score_others):
         return 'Nul', 'grey'
     else:
         return 'Defaite', 'red'
+
+
+def fetch_opponents():
+    '''
+    On lit les fichiers JSON
+    '''
+    path_jsons = os.path.dirname(__file__) + '/json_infos/'
+
+    dict_opponents = OrderedDict()
+    for root, dirs, files in os.walk(path_jsons):
+        for cur_file in files:
+            json_raw = open(path_jsons + '/' + cur_file).read()
+            add_opponents(dict_opponents, json_raw)
+
+    for adv in dict_opponents:
+        print(' ')
+        print(adv)
+        for journee in dict_opponents[adv]:
+            print '%s - id %s' % (get_date(journee['DateDebut']), journee['Id'])
+            infos = '%s %s' % (journee['NameDom'].ljust(25, ' '), journee['NameExt'].ljust(25, ' '))
+            if journee['ScoreDom'] is not None:
+                infos += ': SCORE %s - %s' % (journee['ScoreDom'], journee['ScoreExt'])
+            print(infos)
+    print(' ')
+    return dict_opponents
+
+def not_fous(name):
+    if name == 'LES FOUS DU STADE FC':
+        return False
+    if name == 'LES FOUS 11 ':
+        return False
+    return True
+
+def add_opponents(dict_opponents, json_raw):
+    json_content = json.loads(json_raw)
+    for journee in json_content:
+        
+        if not_fous(journee['NameDom']):
+            name = journee['NameDom']
+        else:
+            name = journee['NameExt']
+
+        #Ajout de l'adversaire
+        if name not in dict_opponents:
+            dict_opponents[name] = [journee]
+        else:
+            dict_opponents[name].append(journee)
