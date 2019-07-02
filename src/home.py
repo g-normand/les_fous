@@ -35,12 +35,12 @@ def foot11():
 def foot7():
     return fla.get_classement(1175)
 
-@route('/archive/foot11')
+@route('/archive_foot11')
 @view('src/football.html')
 def archive_foot11():
     return fla.get_classement(1144, saison_id=5)
 
-@route('/archive/foot7')
+@route('/archive_foot7')
 @view('src/football.html')
 def archive_foot7():
     return fla.get_classement(1146, saison_id=5)
@@ -50,5 +50,6 @@ def server_static(filename):
     return static_file(filename, root='/home/lesfous/www/src/static')
 
 @route('/opponents')
+@view('src/opponents.html')
 def opponents():
     return fla.fetch_opponents()

@@ -1,15 +1,17 @@
 <link rel="stylesheet" href="static/style.css" type="text/css">
 {% block body %}
+{% for adv in opponents %}
+<h5>{{adv}}</h5>
 <table>
     <thead>
         <th>Date</th>
-        <th>Terrain</th>
+        <th>Terrain</th>                                                                                           
         <th>Domicile</th>
         <th>Extérieur</th>
-        <th>Score</th>
+        <th>Score</th>    
     </thead>
     <tbody class="tablerank">
-        {% for journee in journees %}
+        {% for journee in opponents[adv] %}
         <tr class="{{journee['html_class']}}">
             <td>{{journee['Date']}}</td>
             <td>{{journee['Terrain']}}</td>
@@ -19,7 +21,9 @@
                 {{journee['Scoredom']}} - {{journee['Scoreext']}}
                 {% endif %}
             </td>
-            {% endfor %}
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
+{% endfor %}
 {% endblock %}

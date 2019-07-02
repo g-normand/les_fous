@@ -81,16 +81,23 @@ def fetch_opponents():
             add_opponents(dict_opponents, json_raw)
 
     for adv in dict_opponents:
-        print(' ')
-        print(adv)
         for journee in dict_opponents[adv]:
-            print '%s - id %s' % (get_date(journee['DateDebut']), journee['Id'])
-            infos = '%s %s' % (journee['NameDom'].ljust(25, ' '), journee['NameExt'].ljust(25, ' '))
-            if journee['ScoreDom'] is not None:
-                infos += ': SCORE %s - %s' % (journee['ScoreDom'], journee['ScoreExt'])
-            print(infos)
-    print(' ')
-    return dict_opponents
+            journee['Date'] = get_date(journee['Date'])
+            dom = journee['NameDom']
+            ext = journee['NameExt']
+            
+            if not_fous(journee['NameDom']):
+                result, html_class = is_victory(ext, dom)
+            else:
+                result, html_class = is_victory(dom, ext)
+            journee['Result'] = result
+            journee['html_class'] = html_class
+            journee['Equipedom'] = dom
+            journee['Equipeext'] = ext
+            journee['Scoredom'] = journee['ScoreDom']
+            journee['Scoreext'] = journee['ScoreExt']
+
+    return dict(opponents=dict_opponents)
 
 def not_fous(name):
     if name == 'LES FOUS DU STADE FC':
