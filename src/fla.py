@@ -74,7 +74,7 @@ def fetch_opponents():
     '''
     path_jsons = os.path.dirname(__file__) + '/json_infos/'
 
-    dict_opponents = OrderedDict()
+    dict_opponents = dict()
     for root, dirs, files in os.walk(path_jsons):
         for cur_file in files:
             json_raw = open(path_jsons + '/' + cur_file).read()
@@ -82,7 +82,7 @@ def fetch_opponents():
 
     for adv in dict_opponents:
         for journee in dict_opponents[adv]:
-            journee['Date'] = get_date(journee['Date'])
+            journee['Date'] = get_date(journee['DateDebut'])
             dom = journee['NameDom']
             ext = journee['NameExt']
             score_dom = journee['ScoreDom']
@@ -98,7 +98,9 @@ def fetch_opponents():
             journee['Equipeext'] = ext
             journee['Scoredom'] = score_dom
             journee['Scoreext'] = score_ext
-    return dict(opponents=dict_opponents)
+        
+    od = OrderedDict(sorted(dict_opponents.items()))
+    return dict(opponents=od)
 
 def not_fous(name):
     if name == 'LES FOUS DU STADE FC':
@@ -115,7 +117,7 @@ def add_opponents(dict_opponents, json_raw):
             name = journee['NameDom']
         else:
             name = journee['NameExt']
-
+        
         #Ajout de l'adversaire
         if name not in dict_opponents:
             dict_opponents[name] = [journee]
