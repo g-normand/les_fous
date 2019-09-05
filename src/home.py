@@ -25,9 +25,9 @@ def calendar():
     calendar.extend(calendar_7)
     return dict(journees=sorted(calendar, key=lambda journee:journee['Date'], reverse=True))
 
-@route('/foot11/<year>')
-@view('src/football.html')
-def foot11(year=None):
+@route('/classement11/<year>')
+@view('src/classement.html')
+def classement11(year=None):
     print(year)
     if year == '2019':
         return fla.get_classement(1170, saison_id=6)
@@ -39,9 +39,9 @@ def foot11(year=None):
         return fla.get_classement(6, saison_id=2)
     return fla.get_classement(1205)
 
-@route('/foot7/<year>')
-@view('src/football.html')
-def foot7(year=None):
+@route('/classement7/<year>')
+@view('src/classement.html')
+def classement7(year=None):
     if year == '2019':
         return fla.get_classement(1175, saison_id=6)
     if year == '2018':
