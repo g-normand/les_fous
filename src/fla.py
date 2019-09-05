@@ -32,15 +32,15 @@ def get_calendar(team_id):
     infos = []
     for journee in result.json():
         journee['Date'] = get_date(journee['Date'])
-        dom = journee['Scoredom']
-        ext = journee['Scoreext']
+        score_dom = journee['Scoredom']
+        score_ext = journee['Scoreext']
         html_class = 'grey'
-        if dom is not None:
+        if score_dom is not None:
             #On regarde si victoire ou défaite
             if int(journee['IdEquipeDom']) == team_id:
-                result, html_class = is_victory(dom, ext)
+                result, html_class = is_victory(score_dom, score_ext)
             else:
-                result, html_class = is_victory(ext, dom)
+                result, html_class = is_victory(score_ext, score_dom)
             journee['Result'] = result
         journee['html_class'] = html_class
         infos.append(journee)
@@ -85,18 +85,19 @@ def fetch_opponents():
             journee['Date'] = get_date(journee['Date'])
             dom = journee['NameDom']
             ext = journee['NameExt']
-            
-            if not_fous(journee['NameDom']):
-                result, html_class = is_victory(ext, dom)
+            score_dom = journee['ScoreDom']
+            score_ext = journee['ScoreExt']
+
+            if not_fous(dom):
+                result, html_class = is_victory(score_ext, score_dom)
             else:
-                result, html_class = is_victory(dom, ext)
+                result, html_class = is_victory(score_dom, score_ext)
             journee['Result'] = result
             journee['html_class'] = html_class
             journee['Equipedom'] = dom
             journee['Equipeext'] = ext
-            journee['Scoredom'] = journee['ScoreDom']
-            journee['Scoreext'] = journee['ScoreExt']
-
+            journee['Scoredom'] = score_dom
+            journee['Scoreext'] = score_ext
     return dict(opponents=dict_opponents)
 
 def not_fous(name):
