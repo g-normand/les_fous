@@ -60,6 +60,8 @@ def get_date(_date_str):
     )
 
 def is_victory(score_fous, score_others):
+    if score_fous is None:
+        return 'Nul', 'grey'
     if score_fous > score_others:
         return 'Victoire', 'green'
     elif score_fous == score_others:
