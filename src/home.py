@@ -25,26 +25,29 @@ def calendar():
     calendar.extend(calendar_7)
     return dict(journees=sorted(calendar, key=lambda journee:journee['Date'], reverse=True))
 
-@route('/foot11')
+@route('/foot11/<year>')
 @view('src/football.html')
-def foot11():
-    return fla.get_classement(1170)
+def foot11(year=None):
+    print(year)
+    if year == '2019':
+        return fla.get_classement(1170, saison_id=6)
+    if year == '2018':
+        return fla.get_classement(1144, saison_id=5)
+    if year == '2017':
+        return fla.get_classement(1122, saison_id=3)
+    if year == '2016':
+        return fla.get_classement(6, saison_id=2)
+    return fla.get_classement(1205)
 
-@route('/foot7')
+@route('/foot7/<year>')
 @view('src/football.html')
-def foot7():
-    return fla.get_classement(1175)
+def foot7(year=None):
+    if year == '2019':
+        return fla.get_classement(1175, saison_id=6)
+    if year == '2018':
+        return fla.get_classement(1146, saison_id=5)
+    return fla.get_classement(1192)
 
-@route('/archive_foot11')
-@view('src/football.html')
-def archive_foot11():
-    return fla.get_classement(1144, saison_id=5)
-
-@route('/archive_foot7')
-@view('src/football.html')
-def archive_foot7():
-    return fla.get_classement(1146, saison_id=5)
-    
 @route('/static/<filename>')
 def server_static(filename):
     return static_file(filename, root='/home/lesfous/www/src/static')
