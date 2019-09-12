@@ -20,8 +20,8 @@ def error500(error):
 @route('/calendar')
 @view('src/calendar.html')
 def calendar():
-    calendar = fla.get_calendar(2958)
-    calendar_7 = fla.get_calendar(3041)
+    calendar = fla.get_calendar(3349)
+    calendar_7 = fla.get_calendar(3423)
     calendar.extend(calendar_7)
     return dict(journees=sorted(calendar, key=lambda journee:journee['Date'], reverse=True))
 
