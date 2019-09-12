@@ -8,7 +8,7 @@ from decimal import Decimal
 from collections import OrderedDict
 import json
 
-def get_classement(championnat_id, saison_id=6):
+def get_classement(championnat_id, saison_id):
     payload = {}
     payload['championnatId'] = championnat_id
     payload['saisonId'] = saison_id

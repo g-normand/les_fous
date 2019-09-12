@@ -37,7 +37,7 @@ def classement11(year=None):
         return fla.get_classement(1122, saison_id=3)
     if year == '2016':
         return fla.get_classement(6, saison_id=2)
-    return fla.get_classement(1205)
+    return fla.get_classement(1205, saison_id=7)
 
 @route('/classement7/<year>')
 @view('src/classement.html')
@@ -46,7 +46,7 @@ def classement7(year=None):
         return fla.get_classement(1175, saison_id=6)
     if year == '2018':
         return fla.get_classement(1146, saison_id=5)
-    return fla.get_classement(1192)
+    return fla.get_classement(1192, saison_id=7)
 
 @route('/static/<filename>')
 def server_static(filename):
