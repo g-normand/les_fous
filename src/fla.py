@@ -8,6 +8,7 @@ from decimal import Decimal
 from collections import OrderedDict
 import json
 
+
 def get_classement(championnat_id, saison_id):
     payload = {}
     payload['championnatId'] = championnat_id
@@ -24,6 +25,7 @@ def get_classement(championnat_id, saison_id):
         infos.append(team)
     return dict(teams=sorted(infos, key=lambda team:team['Points'], reverse=True))
 
+
 def get_calendar(team_id):
     payload = {}
     payload['idEquipe'] = team_id
@@ -31,6 +33,7 @@ def get_calendar(team_id):
 
     infos = []
     for journee in result.json():
+        journee['Date_str'] = get_date_str(journee['Date'])
         journee['Date'] = get_date(journee['Date'])
         score_dom = journee['Scoredom']
         score_ext = journee['Scoreext']
@@ -46,6 +49,21 @@ def get_calendar(team_id):
         infos.append(journee)
     return infos
 
+
+def get_date_str(_date_str):
+    try:
+        _date = _date_str[6:-2]
+    except TypeError:
+        return 'inconnu'
+    if len(_date) != 13:
+        raise AssertionError(_date)
+    return (
+        datetime.datetime.fromtimestamp(
+            int(_date) / 1000
+        ).strftime('%Y-%m-d %H:%M')
+    )
+
+
 def get_date(_date_str):
     try:
         _date = _date_str[6:-2]
@@ -56,8 +74,9 @@ def get_date(_date_str):
     return (
         datetime.datetime.fromtimestamp(
             int(_date) / 1000
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        ).strftime('%A %d/%m/%Y %H:%M')
     )
+
 
 def is_victory(score_fous, score_others):
     if score_fous is None:
@@ -65,7 +84,7 @@ def is_victory(score_fous, score_others):
     if score_fous > score_others:
         return 'Victoire', 'green'
     elif score_fous == score_others:
-        return 'Nul', 'grey'
+        return 'Nul', 'yellow'
     else:
         return 'Defaite', 'red'
 

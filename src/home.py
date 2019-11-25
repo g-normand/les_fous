@@ -23,7 +23,7 @@ def calendar():
     calendar = fla.get_calendar(3349)
     calendar_7 = fla.get_calendar(3423)
     calendar.extend(calendar_7)
-    return dict(journees=sorted(calendar, key=lambda journee:journee['Date'], reverse=True))
+    return dict(journees=sorted(calendar, key=lambda journee:journee['Date_str'], reverse=True))
 
 @route('/classement11/<year>')
 @view('src/classement.html')
