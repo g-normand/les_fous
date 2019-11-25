@@ -34,7 +34,7 @@ def get_calendar(team_id):
     infos = []
     for journee in result.json():
         journee['Date_str'] = get_date_str(journee['Date'])
-        journee['Date'] = get_date(journee['Date'])
+        journee['Date_fr'] = get_date(journee['Date'])
         score_dom = journee['Scoredom']
         score_ext = journee['Scoreext']
         html_class = 'grey'
@@ -84,7 +84,7 @@ def is_victory(score_fous, score_others):
     if score_fous > score_others:
         return 'Victoire', 'green'
     elif score_fous == score_others:
-        return 'Nul', 'yellow'
+        return 'Nul', 'orange'
     else:
         return 'Defaite', 'red'
 
