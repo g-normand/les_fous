@@ -48,17 +48,27 @@ if(navigator.geolocation){
 
 $(document).ready(function() {
     $("#maps_validate").on('click', function(){
-	var data = {};
-	data['url'] = $('#google_url').val();
-	data['pas'] = '0.05';
+        var data = {};
+        data['url'] = $('#google_url').val();
+        data['pas'] = '0.05';
 
-	$.ajax(
-	    {url: "faune/from_google_maps",
-	     data: data,
-	     success : function(data) {
-		 $("#faune_label").show();
-		 $('#faune_url').attr('href', data.url);
-	     }
-	    });
+        $.ajax(
+            {url: "faune/from_google_maps",
+             data: data,
+             success : function(data) {
+             $(".faune_info").show();
+             $('#faune_url').attr('href', data.url);
+             $('#faune_place').text(data.place);
+             },
+             error: function(data) {
+               alert('Erreur lors de la récupération des données.');
+             }
+            });
     });
+
+    $('#effacer').on('click', function(){
+        $('#google_url').val('');
+    })
+
 });
+

@@ -21,7 +21,7 @@ def faune_from_google_maps():
     url = request.query.get('url')
     pas = request.query.get('pas')
 
-    return dict(url=faune_service.get_infos_from_url(url, pas))
+    return dict(url=faune_service.get_infos_from_url(url, pas), place=faune_service.get_place(url))
 
 
 @route('/')

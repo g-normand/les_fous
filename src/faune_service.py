@@ -21,4 +21,9 @@ def get_infos_from_url(url, pas):
     infos_dict['min_lon'] = longitude - pas
     infos_dict['max_lon'] = longitude + pas
 
-    return url % (infos_dict)
+    return url % infos_dict
+
+
+def get_place(url):
+    url_split = url.split('/')
+    return url_split[5]
