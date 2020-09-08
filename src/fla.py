@@ -23,6 +23,7 @@ def get_classement(championnat_id, saison_id):
         else:
             team['Pts_Matchs'] = '-'
         infos.append(team)
+    print(infos)
     return dict(teams=sorted(infos, key=lambda team:team['Points'], reverse=True))
 
 
