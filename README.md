@@ -7,22 +7,23 @@ Utilisation de Bottle (https://bottlepy.org/docs/dev/)
 
 Tout passe par le WSGI
 Pour Alwaysdata, c'est dans /admin/config/uwsgi
-"""
+```
 chdir = /home/lesfous/www
 wsgi-file = /home/lesfous/www/wsgi.py
-"""
+
+L installation est:
+make install_alwaysdata
+``` 
 
 Sinon faire:
-source bin/activate
-python start-bottle.py
+```
+make start
+```
 
 
 Pour l'installation:
-$ cd /tmp
-$ wget --no-check-certificate https://pypi.python.org/packages/source/v/virtualenv/virtualenv-15.0.0.tar.gz
-$ tar -vxf virtualenv-15.0.0.tar.gz
-$ cd virtualenv-15.0.0/
-$ python virtualenv.py  -p python3 --no-site-package $PROJECT_ROOT
-$ cd $PROJECT_ROOT
-$ source bin/activate
-$ pip install bottle requests jinja2
+```
+$ git clone git@github.com:g-normand/les_fous.git
+$ cd les_fous
+$ make install
+``` 
